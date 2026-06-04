@@ -1,0 +1,48 @@
+$primary:#4f46e5; $dark:#0f172a; $muted:#64748b; $border:#e2e8f0; $light:#f8fafc;
+
+.dh-page { max-width: 1100px; }
+.page-title { margin-bottom: 1.8rem; h1 { font-size: 1.6rem; font-weight: 800; color: $dark; margin: 0 0 .2rem; } .subtitle { color: $muted; font-size: .9rem; } }
+.loading { color: $muted; padding: 2rem 0; }
+
+.stat-cards { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.2rem; margin-bottom: 2rem; }
+.stat-card {
+  background: #fff;
+  border-radius: 14px;
+  padding: 1.3rem;
+  border: 1px solid $border;
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
+  position: relative;
+  overflow: hidden;
+  &::before { content: ''; position: absolute; top: 0; left: 0; width: 4px; height: 100%; border-radius: 4px 0 0 4px; }
+  &.blue::before  { background: #3b82f6; } .sc-num { color: #3b82f6; }
+  &.purple::before { background: #8b5cf6; }
+  &.amber::before  { background: #f59e0b; }
+  &.red::before    { background: #ef4444; }
+}
+.stat-card.purple .sc-num { color: #8b5cf6; }
+.stat-card.amber  .sc-num { color: #f59e0b; }
+.stat-card.red    .sc-num { color: #ef4444; }
+.sc-icon  { font-size: 1.8rem; }
+.sc-num   { font-size: 2rem; font-weight: 800; }
+.sc-label { font-size: .82rem; color: $muted; margin-top: -.4rem; }
+.sc-link  { font-size: .78rem; color: $primary; text-decoration: none; font-weight: 600; align-self: flex-start; &:hover { text-decoration: underline; } }
+
+.section-card { background: #fff; border-radius: 14px; padding: 1.5rem; border: 1px solid $border; margin-bottom: 1.5rem; }
+.sc-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.2rem; h3 { font-size: 1rem; font-weight: 700; color: $dark; margin: 0; } }
+.btn-sm { background: $primary; color: #fff; padding: .35rem .9rem; border-radius: 6px; font-size: .8rem; font-weight: 600; text-decoration: none; }
+.empty { color: $muted; font-size: .9rem; padding: 1rem 0; }
+
+.data-table { width: 100%; border-collapse: collapse; font-size: .88rem; th { background: $light; color: $muted; font-size: .75rem; text-transform: uppercase; padding: .6rem .8rem; text-align: left; font-weight: 600; border-bottom: 1px solid $border; } td { padding: .7rem .8rem; border-bottom: 1px solid $border; color: $dark; vertical-align: top; } tr:last-child td { border-bottom: none; } }
+.sub-text { font-size: .78rem; color: $muted; }
+.msg-cell { color: $muted; max-width: 200px; }
+.status-badge { display: inline-block; padding: .2rem .7rem; border-radius: 20px; font-size: .75rem; font-weight: 600; text-transform: capitalize; }
+.date-cell { white-space: nowrap; color: $muted; font-size: .82rem; }
+
+.quick-actions { h3 { font-size: 1rem; font-weight: 700; color: $dark; margin: 0 0 1rem; } }
+.qa-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; }
+.qa-card { background: #fff; border: 1px solid $border; border-radius: 12px; padding: 1.2rem; text-align: center; text-decoration: none; color: $dark; font-size: .9rem; font-weight: 600; transition: .2s; display: flex; flex-direction: column; align-items: center; gap: .5rem; &:hover { border-color: $primary; box-shadow: 0 4px 16px rgba($primary,.1); transform: translateY(-2px); } }
+.qa-icon { font-size: 1.8rem; }
+
+@media (max-width: 768px) { .stat-cards { grid-template-columns: 1fr 1fr; } .qa-grid { grid-template-columns: 1fr 1fr; } }

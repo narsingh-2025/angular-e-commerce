@@ -1,0 +1,19 @@
+$primary:#4f46e5; $dark:#0f172a; $muted:#64748b; $border:#e2e8f0; $light:#f8fafc;
+
+.page { max-width:700px; }
+.page-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:1.8rem; h2 { font-size:1.5rem; font-weight:800; color:$dark; margin:0; } }
+.btn-back { color:$primary; text-decoration:none; font-size:.9rem; }
+.form-card { background:#fff; border-radius:14px; padding:2rem; border:1px solid $border; }
+.form-grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:.5rem; }
+.fg { margin-bottom:1rem; label { display:block; font-size:.82rem; font-weight:600; color:$dark; margin-bottom:.3rem; } input,textarea { width:100%; padding:.6rem .8rem; border:1px solid $border; border-radius:8px; font-size:.9rem; box-sizing:border-box; font-family:inherit; &:focus { outline:none; border-color:$primary; } } }
+.color-row { display:flex; gap:.5rem; flex-wrap:wrap; }
+.color-dot { width:28px; height:28px; border-radius:50%; cursor:pointer; border:3px solid transparent; &.selected { border-color:$dark; transform:scale(1.2); } }
+.toggle-row { display:flex; justify-content:space-between; align-items:center; padding:.5rem 0; font-size:.9rem; color:$dark; font-weight:500; border-bottom:1px solid $border; &:last-of-type { border:none; } }
+.toggle { position:relative; display:inline-block; width:38px; height:22px; input { opacity:0; width:0; height:0; } }
+.slider { position:absolute; cursor:pointer; inset:0; background:#cbd5e1; border-radius:22px; transition:.3s; &::before { content:''; position:absolute; width:16px; height:16px; border-radius:50%; background:#fff; left:3px; bottom:3px; transition:.3s; } }
+.toggle input:checked + .slider { background:$primary; }
+.toggle input:checked + .slider::before { transform:translateX(16px); }
+.alert-err { background:#fef2f2; border-left:3px solid #ef4444; color:#b91c1c; padding:.6rem .9rem; border-radius:6px; margin-bottom:1rem; font-size:.85rem; }
+.form-actions { display:flex; gap:.8rem; margin-top:1.2rem; }
+.btn-save { background:$primary; color:#fff; border:none; padding:.65rem 1.5rem; border-radius:8px; font-size:.95rem; font-weight:600; cursor:pointer; &:disabled { opacity:.5; } }
+.btn-cancel { background:$light; color:$muted; padding:.65rem 1.5rem; border-radius:8px; font-size:.95rem; text-decoration:none; }

@@ -1,0 +1,35 @@
+<div class="page">
+  <div class="page-header">
+    <div><h2>Categories</h2><p>Manage your product categories and subcategories</p></div>
+    <a routerLink="/dashboard/categories/new" class="btn-add">+ Add Category</a>
+  </div>
+
+  <div *ngIf="loading" class="loading">Loading...</div>
+
+  <div class="cat-grid" *ngIf="!loading">
+    <div class="cat-card" *ngFor="let c of categories">
+      <div class="cat-color-bar" [style.background]="c.color"></div>
+      <div class="cat-body">
+        <div class="cat-top">
+          <span class="cat-icon" [style.background]="c.color + '20'">{{ c.icon }}</span>
+          <div class="cat-meta">
+            <h3>{{ c.name }}</h3>
+            <span class="cat-slug">{{ c.slug }}</span>
+          </div>
+          <label class="toggle">
+            <input type="checkbox" [checked]="c.isActive" (change)="toggle(c)" />
+            <span class="slider"></span>
+          </label>
+        </div>
+        <p>{{ c.description }}</p>
+        <div class="subcats" *ngIf="c.subcategories?.length">
+          <span *ngFor="let s of c.subcategories" class="subcat-chip">{{ s.name }}</span>
+        </div>
+        <div class="cat-actions">
+          <a [routerLink]="['/dashboard/categories/edit', c._id]" class="btn-edit">✏️ Edit</a>
+          <button (click)="delete(c._id!)" class="btn-del">🗑️ Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

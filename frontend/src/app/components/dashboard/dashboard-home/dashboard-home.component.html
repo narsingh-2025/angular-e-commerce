@@ -1,0 +1,99 @@
+<div class="dh-page">
+  <div class="page-title">
+    <h1>Overview</h1>
+    <span class="subtitle">Welcome back — here's what's happening today.</span>
+  </div>
+
+  <div *ngIf="loading" class="loading">Loading stats...</div>
+
+  <div *ngIf="stats">
+    <!-- Stat Cards -->
+    <div class="stat-cards">
+      <div class="stat-card blue">
+        <div class="sc-icon">📦</div>
+        <div class="sc-body">
+          <div class="sc-num">{{ stats.totalProducts }}</div>
+          <div class="sc-label">Total Products</div>
+        </div>
+        <a routerLink="/dashboard/products" class="sc-link">Manage →</a>
+      </div>
+      <div class="stat-card purple">
+        <div class="sc-icon">🗂️</div>
+        <div class="sc-body">
+          <div class="sc-num">{{ stats.totalCategories }}</div>
+          <div class="sc-label">Categories</div>
+        </div>
+        <a routerLink="/dashboard/categories" class="sc-link">Manage →</a>
+      </div>
+      <div class="stat-card amber">
+        <div class="sc-icon">📩</div>
+        <div class="sc-body">
+          <div class="sc-num">{{ stats.totalInquiries }}</div>
+          <div class="sc-label">Total Inquiries</div>
+        </div>
+        <a routerLink="/dashboard/inquiries" class="sc-link">View All →</a>
+      </div>
+      <div class="stat-card red">
+        <div class="sc-icon">🔔</div>
+        <div class="sc-body">
+          <div class="sc-num">{{ stats.pendingInquiries }}</div>
+          <div class="sc-label">Pending Inquiries</div>
+        </div>
+        <a routerLink="/dashboard/inquiries" class="sc-link">Review →</a>
+      </div>
+    </div>
+
+    <!-- Recent Inquiries -->
+    <div class="section-card">
+      <div class="sc-header">
+        <h3>Recent B2B Inquiries</h3>
+        <a routerLink="/dashboard/inquiries" class="btn-sm">View All</a>
+      </div>
+      <div *ngIf="stats.recentInquiries?.length === 0" class="empty">No inquiries yet.</div>
+      <table class="data-table" *ngIf="stats.recentInquiries?.length > 0">
+        <thead>
+          <tr><th>Company / Name</th><th>Category</th><th>Message</th><th>Status</th><th>Date</th></tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let inq of stats.recentInquiries">
+            <td>
+              <strong>{{ inq.company || inq.name }}</strong>
+              <div class="sub-text">{{ inq.email }}</div>
+            </td>
+            <td>{{ inq.category || '—' }}</td>
+            <td class="msg-cell">{{ inq.message | slice:0:60 }}{{ inq.message?.length > 60 ? '...' : '' }}</td>
+            <td>
+              <span class="status-badge" [style.background]="statusColors[inq.status] + '20'" [style.color]="statusColors[inq.status]">
+                {{ inq.status }}
+              </span>
+            </td>
+            <td class="date-cell">{{ inq.createdAt | date:'MMM d' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Quick Actions -->
+    <div class="quick-actions">
+      <h3>Quick Actions</h3>
+      <div class="qa-grid">
+        <a routerLink="/dashboard/products/new" class="qa-card">
+          <span class="qa-icon">➕</span>
+          <span>Add Product</span>
+        </a>
+        <a routerLink="/dashboard/categories/new" class="qa-card">
+          <span class="qa-icon">🗂️</span>
+          <span>Add Category</span>
+        </a>
+        <a routerLink="/shop" class="qa-card">
+          <span class="qa-icon">🛒</span>
+          <span>View Shop</span>
+        </a>
+        <a routerLink="/bulk-order" class="qa-card">
+          <span class="qa-icon">📩</span>
+          <span>B2B Form</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

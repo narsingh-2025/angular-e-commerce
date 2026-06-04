@@ -1,0 +1,56 @@
+<div class="page">
+  <div class="page-header">
+    <div><h2>{{ isEdit ? 'Edit' : 'New' }} Category</h2></div>
+    <a routerLink="/dashboard/categories" class="btn-back">← Back</a>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" class="form-card">
+    <div class="form-grid-2">
+      <div class="fg"><label>Category Name *</label><input formControlName="name" type="text" placeholder="e.g. Food Grains" /></div>
+      <div class="fg"><label>Slug *</label><input formControlName="slug" type="text" placeholder="food-grains" /><small>Auto-generated from name</small></div>
+      <div class="fg"><label>Icon (emoji) *</label><input formControlName="icon" type="text" placeholder="🌾" style="font-size:1.4rem;width:80px" /></div>
+      <div class="fg"><label>Sort Order</label><input formControlName="sortOrder" type="number" /></div>
+    </div>
+
+    <div class="fg"><label>Description</label><textarea formControlName="description" rows="2" placeholder="Short description..."></textarea></div>
+
+    <div class="fg">
+      <label>Color</label>
+      <div class="color-row">
+        <div *ngFor="let c of colorOptions" class="color-dot"
+             [style.background]="c"
+             [class.selected]="form.get('color')?.value === c"
+             (click)="form.get('color')!.setValue(c)"></div>
+        <input formControlName="color" type="text" class="color-input" placeholder="#4f46e5" />
+      </div>
+    </div>
+
+    <div class="fg">
+      <label>Active</label>
+      <label class="toggle">
+        <input formControlName="isActive" type="checkbox" />
+        <span class="slider"></span>
+      </label>
+    </div>
+
+    <div class="subs-section">
+      <div class="subs-header">
+        <label>Subcategories</label>
+        <button type="button" (click)="addSub()">+ Add</button>
+      </div>
+      <div formArrayName="subcategories">
+        <div class="sub-row" *ngFor="let s of subs.controls; let i = index" [formGroupName]="i">
+          <input formControlName="name" placeholder="Name" />
+          <input formControlName="slug" placeholder="slug" />
+          <button type="button" (click)="removeSub(i)" class="btn-rm">✕</button>
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="error" class="alert-error">{{ error }}</div>
+    <div class="form-actions">
+      <button type="submit" class="btn-save" [disabled]="loading">{{ loading ? 'Saving...' : (isEdit ? 'Update Category' : 'Create Category') }}</button>
+      <a routerLink="/dashboard/categories" class="btn-cancel">Cancel</a>
+    </div>
+  </form>
+</div>

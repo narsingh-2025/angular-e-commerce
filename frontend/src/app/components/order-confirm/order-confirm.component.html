@@ -1,0 +1,55 @@
+<div class="oc-page">
+  <div *ngIf="loading" class="loading">Loading order...</div>
+  <div *ngIf="!loading && order" class="oc-container">
+    <div class="success-banner">
+      <div class="success-icon">✅</div>
+      <h1>Order Confirmed!</h1>
+      <p>Thank you, <strong>{{ order.customer.name }}</strong>! Your order has been placed successfully.</p>
+      <div class="order-num">Order #{{ order.orderNumber }}</div>
+    </div>
+
+    <div class="oc-grid">
+      <div class="oc-card">
+        <h3>Order Items</h3>
+        <table class="items-table">
+          <thead><tr><th>Product</th><th>Qty</th><th>Price</th><th>Subtotal</th></tr></thead>
+          <tbody>
+            <tr *ngFor="let item of order.items">
+              <td>{{ item.productName }}</td>
+              <td>{{ item.quantity }} {{ item.unit }}</td>
+              <td>₹{{ item.price | number:'1.0-0' }}</td>
+              <td><strong>₹{{ item.subtotal | number:'1.0-0' }}</strong></td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="totals">
+          <div class="tr"><span>Subtotal</span><span>₹{{ order.subtotal | number:'1.0-0' }}</span></div>
+          <div class="tr"><span>Tax</span><span>₹{{ order.tax | number:'1.0-0' }}</span></div>
+          <div class="tr"><span>Shipping</span><span>{{ order.shipping === 0 ? 'FREE' : '₹'+order.shipping }}</span></div>
+          <div class="tr total"><span>Total Paid</span><strong>₹{{ order.total | number:'1.0-0' }}</strong></div>
+        </div>
+      </div>
+
+      <div class="oc-aside">
+        <div class="oc-card">
+          <h3>Delivery Address</h3>
+          <p>{{ order.customer.name }}<br>{{ order.customer.phone }}<br>{{ order.customer.address }}<br>{{ order.customer.city }}, {{ order.customer.state }} - {{ order.customer.pincode }}</p>
+        </div>
+        <div class="oc-card">
+          <h3>Payment</h3>
+          <div class="pay-row"><span>Method</span><span>{{ order.payment?.method | titlecase }}</span></div>
+          <div class="pay-row"><span>Status</span>
+            <span class="pay-status" [class.paid]="order.payment?.status === 'paid'" [class.pend]="order.payment?.status === 'pending'">
+              {{ order.payment?.status | titlecase }}
+            </span>
+          </div>
+          <div class="pay-row" *ngIf="order.payment?.razorpayPaymentId"><span>Payment ID</span><span class="pid">{{ order.payment?.razorpayPaymentId }}</span></div>
+        </div>
+        <div class="oc-actions">
+          <a routerLink="/shop" class="btn-shop">Continue Shopping</a>
+          <a routerLink="/" class="btn-home">Go Home</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+$primary:#4f46e5; $dark:#0f172a; $muted:#64748b; $border:#e2e8f0; $light:#f8fafc;
+
+.page { max-width: 1200px; }
+.page-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 1.5rem; h2 { font-size: 1.5rem; font-weight: 800; color: $dark; margin: 0 0 .2rem; } p { color: $muted; font-size: .88rem; margin: 0; } }
+.btn-add { background: $primary; color: #fff; padding: .55rem 1.2rem; border-radius: 8px; font-size: .88rem; font-weight: 600; text-decoration: none; flex-shrink: 0; &:hover { opacity: .88; } }
+.toolbar { display: flex; gap: .8rem; margin-bottom: 1.2rem; flex-wrap: wrap; }
+.search-input { flex: 1; min-width: 200px; padding: .55rem .9rem; border: 1px solid $border; border-radius: 8px; font-size: .88rem; &:focus { outline: none; border-color: $primary; } }
+.toolbar select { padding: .55rem .9rem; border: 1px solid $border; border-radius: 8px; font-size: .88rem; background: #fff; cursor: pointer; }
+.loading, .empty { color: $muted; padding: 2rem 0; }
+
+.data-table { width: 100%; border-collapse: collapse; background: #fff; border-radius: 12px; overflow: hidden; border: 1px solid $border; th { background: $light; color: $muted; font-size: .75rem; text-transform: uppercase; padding: .7rem 1rem; text-align: left; font-weight: 600; border-bottom: 1px solid $border; } td { padding: .8rem 1rem; border-bottom: 1px solid $border; color: $dark; vertical-align: middle; font-size: .88rem; } tr:last-child td { border-bottom: none; } tr:hover td { background: #fafafa; } }
+
+.product-cell { display: flex; align-items: center; gap: .7rem; }
+.p-icon { width: 36px; height: 36px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; flex-shrink: 0; }
+.product-cell strong { font-size: .9rem; color: $dark; display: block; }
+.sub-text { font-size: .75rem; color: $muted; }
+.cat-badge { font-size: .75rem; font-weight: 600; padding: .2rem .6rem; border-radius: 20px; }
+.price-cell { font-weight: 600; color: #059669; }
+.low-stock { color: #ef4444; font-weight: 600; }
+.status-dot { font-size: .75rem; font-weight: 600; padding: .15rem .55rem; border-radius: 20px; &.active { background: #dcfce7; color: #15803d; } &.inactive { background: #f1f5f9; color: $muted; } }
+.feat-dot { margin-left: .3rem; font-size: .8rem; }
+.actions { display: flex; gap: .4rem; }
+.btn-edit { background: #eff6ff; color: #3b82f6; padding: .3rem .65rem; border-radius: 5px; font-size: .78rem; text-decoration: none; font-weight: 500; &:hover { background: #dbeafe; } }
+.btn-view { background: #f0fdf4; color: #15803d; padding: .3rem .65rem; border-radius: 5px; font-size: .78rem; text-decoration: none; font-weight: 500; }
+.btn-del  { background: #fef2f2; color: #ef4444; border: none; padding: .3rem .65rem; border-radius: 5px; font-size: .78rem; cursor: pointer; font-weight: 500; &:hover { background: #fee2e2; } }

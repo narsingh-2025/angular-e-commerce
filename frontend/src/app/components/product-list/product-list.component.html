@@ -1,0 +1,42 @@
+<div class="container">
+  <div class="header">
+    <h1>Product Manager</h1>
+    <a routerLink="/products/new" class="btn btn-primary">+ Add Product</a>
+  </div>
+
+  <div *ngIf="loading" class="loading">Loading products...</div>
+  <div *ngIf="error" class="alert error">{{ error }}</div>
+
+  <div *ngIf="!loading && !error">
+    <div *ngIf="products.length === 0" class="empty">
+      No products yet. <a routerLink="/products/new">Add your first product</a>
+    </div>
+
+    <table *ngIf="products.length > 0" class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Category</th>
+          <th>Price</th>
+          <th>Stock</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of products">
+          <td>
+            <strong>{{ product.name }}</strong>
+            <div class="desc">{{ product.description }}</div>
+          </td>
+          <td><span class="badge">{{ product.category || '—' }}</span></td>
+          <td class="price">${{ product.price | number:'1.2-2' }}</td>
+          <td [class.low-stock]="(product.stock ?? 0) < 5">{{ product.stock ?? 0 }}</td>
+          <td class="actions">
+            <a [routerLink]="['/products/edit', product._id]" class="btn btn-edit">Edit</a>
+            <button (click)="deleteProduct(product._id!)" class="btn btn-delete">Delete</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

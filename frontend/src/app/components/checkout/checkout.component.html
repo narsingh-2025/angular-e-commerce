@@ -1,0 +1,93 @@
+<div class="checkout-page">
+  <div class="checkout-container">
+    <div class="co-header">
+      <a routerLink="/shop" class="back-link">← Back to Shop</a>
+      <h1>Checkout</h1>
+      <div class="steps">
+        <div class="step" [class.active]="step >= 1" [class.done]="step > 1"><span>1</span> Details</div>
+        <div class="step-line"></div>
+        <div class="step" [class.active]="step >= 2" [class.done]="step > 2"><span>2</span> Review</div>
+        <div class="step-line"></div>
+        <div class="step" [class.active]="step >= 3"><span>3</span> Payment</div>
+      </div>
+    </div>
+
+    <div class="co-grid">
+      <!-- LEFT: Form / Review -->
+      <div class="co-main">
+
+        <!-- Step 1: Delivery Details -->
+        <form [formGroup]="form" *ngIf="step === 1" class="co-card">
+          <h3>🏠 Delivery Details</h3>
+          <div class="fg-row">
+            <div class="fg"><label>Full Name *</label><input formControlName="name" placeholder="Your full name" /><span class="err" *ngIf="form.get('name')?.invalid && form.get('name')?.touched">Required</span></div>
+            <div class="fg"><label>Email *</label><input formControlName="email" type="email" placeholder="email@example.com" /><span class="err" *ngIf="form.get('email')?.invalid && form.get('email')?.touched">Valid email required</span></div>
+          </div>
+          <div class="fg"><label>Phone *</label><input formControlName="phone" type="tel" placeholder="10-digit mobile number" /><span class="err" *ngIf="form.get('phone')?.invalid && form.get('phone')?.touched">Valid 10-digit number required</span></div>
+          <div class="fg"><label>Address *</label><textarea formControlName="address" rows="2" placeholder="Street / Area / Landmark"></textarea></div>
+          <div class="fg-row">
+            <div class="fg"><label>City *</label><input formControlName="city" placeholder="City" /></div>
+            <div class="fg"><label>State *</label><input formControlName="state" placeholder="State" /></div>
+            <div class="fg"><label>PIN Code *</label><input formControlName="pincode" placeholder="6-digit PIN" /><span class="err" *ngIf="form.get('pincode')?.invalid && form.get('pincode')?.touched">Valid 6-digit PIN</span></div>
+          </div>
+          <button type="button" class="btn-next" (click)="nextStep()">Continue to Review →</button>
+        </form>
+
+        <!-- Step 2: Order Review -->
+        <div class="co-card" *ngIf="step === 2">
+          <h3>📋 Review Your Order</h3>
+          <div class="review-items">
+            <div class="ri" *ngFor="let item of cartSvc.items$ | async">
+              <div class="ri-icon" [style.background]="item.categoryColor || '#4f46e5'">{{ item.categoryIcon || '📦' }}</div>
+              <div class="ri-info">
+                <strong>{{ item.name }}</strong>
+                <span>{{ item.quantity }} × {{ item.unit }} &#64; ₹{{ item.price | number:'1.0-0' }}</span>
+              </div>
+              <strong class="ri-subtotal">₹{{ (item.price * item.quantity) | number:'1.0-0' }}</strong>
+            </div>
+          </div>
+          <div class="delivery-info">
+            <h4>Delivering to</h4>
+            <p>{{ form.value.name }}, {{ form.value.phone }}<br>{{ form.value.address }}, {{ form.value.city }}, {{ form.value.state }} - {{ form.value.pincode }}</p>
+            <button class="btn-link" (click)="step = 1">Edit</button>
+          </div>
+          <div class="co-actions">
+            <button class="btn-back-step" (click)="step = 1">← Edit Details</button>
+            <button class="btn-pay" (click)="placeOrder()" [disabled]="loading">
+              {{ loading ? 'Processing...' : '💳 Pay ₹' + (total | number:'1.0-0') }}
+            </button>
+          </div>
+          <div *ngIf="error" class="alert-err">{{ error }}</div>
+          <div class="razorpay-note">
+            <img src="https://razorpay.com/favicon.ico" width="14" alt="Razorpay" />
+            Secured by Razorpay · UPI, Cards, NetBanking accepted
+          </div>
+        </div>
+      </div>
+
+      <!-- RIGHT: Order Summary -->
+      <aside class="co-summary">
+        <div class="co-card">
+          <h3>Order Summary</h3>
+          <div class="sum-rows">
+            <div class="sr" *ngFor="let item of cartSvc.items$ | async">
+              <span>{{ item.name }} × {{ item.quantity }}</span>
+              <span>₹{{ (item.price * item.quantity) | number:'1.0-0' }}</span>
+            </div>
+            <div class="sr border-t"><span>Subtotal</span><span>₹{{ subtotal | number:'1.0-0' }}</span></div>
+            <div class="sr muted"><span>GST (5%)</span><span>₹{{ tax | number:'1.0-0' }}</span></div>
+            <div class="sr muted"><span>Shipping</span><span>{{ shipping === 0 ? 'FREE' : '₹' + shipping }}</span></div>
+            <div class="sr total"><span>Total</span><strong>₹{{ total | number:'1.0-0' }}</strong></div>
+          </div>
+          <div class="free-ship-note" *ngIf="subtotal < 5000">Free shipping on orders above ₹5000</div>
+        </div>
+        <div class="trust-card">
+          <div class="trust-item"><span>🔒</span><span>Secure Payment</span></div>
+          <div class="trust-item"><span>✅</span><span>Verified Sellers</span></div>
+          <div class="trust-item"><span>🚚</span><span>Fast Delivery</span></div>
+          <div class="trust-item"><span>↩️</span><span>Easy Returns</span></div>
+        </div>
+      </aside>
+    </div>
+  </div>
+</div>

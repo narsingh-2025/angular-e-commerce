@@ -1,0 +1,64 @@
+$primary: #4f46e5; $dark: #0f172a; $muted: #64748b; $border: #e2e8f0; $light: #f8fafc;
+
+.shop-layout { display: flex; min-height: calc(100vh - 60px); background: $light; }
+
+// SIDEBAR
+.sidebar { width: 260px; flex-shrink: 0; background: #fff; border-right: 1px solid $border; padding: 1.5rem 0; position: sticky; top: 60px; height: calc(100vh - 60px); overflow-y: auto; }
+.sidebar-section { padding: 0 1.2rem 1.5rem; border-bottom: 1px solid $border; margin-bottom: 1.5rem; h3 { font-size: .8rem; font-weight: 700; color: $muted; text-transform: uppercase; letter-spacing: .08em; margin: 0 0 .8rem; } }
+
+.cat-list, .sub-list { list-style: none; margin: 0; padding: 0; }
+.cat-list li { display: flex; align-items: center; gap: .6rem; padding: .55rem .8rem; border-radius: 8px; cursor: pointer; font-size: .9rem; color: #334155; transition: .15s; margin-bottom: .2rem; }
+.cat-list li:hover { background: #f1f5f9; }
+.cat-list li.active { background: rgba($primary,.08); color: $primary; font-weight: 600; }
+.cat-icon { font-size: 1.1rem; }
+.sub-list li { padding: .4rem .8rem; border-radius: 6px; cursor: pointer; font-size: .85rem; color: $muted; transition: .15s; }
+.sub-list li:hover { background: #f1f5f9; color: $dark; }
+.sub-list li.active { color: $primary; font-weight: 600; }
+
+.b2b-cta { text-align: center; border: none !important; .b2b-icon { font-size: 2rem; margin-bottom: .5rem; } h4 { font-size: .95rem; font-weight: 700; color: $dark; margin: 0 0 .4rem; } p { font-size: .82rem; color: $muted; margin: 0 0 .8rem; } }
+.btn-b2b { display: block; background: $primary; color: #fff; padding: .55rem; border-radius: 8px; font-size: .85rem; font-weight: 600; text-decoration: none; transition: .2s; }
+.btn-b2b:hover { opacity: .88; }
+
+// MAIN
+.shop-main { flex: 1; padding: 1.5rem; }
+.shop-topbar { display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap; }
+.search-bar { display: flex; flex: 1; max-width: 420px; border: 1px solid $border; border-radius: 8px; overflow: hidden; background: #fff; input { flex: 1; padding: .6rem 1rem; border: none; font-size: .95rem; outline: none; } button { background: $primary; color: #fff; border: none; padding: .6rem .9rem; cursor: pointer; font-size: 1rem; } }
+.cart-btn-shop { background: $primary; color: #fff; border: none; padding: .55rem 1rem; border-radius: 8px; cursor: pointer; font-size: .88rem; font-weight: 600; display: flex; align-items: center; gap: .4rem; .cc { background: #ef4444; color: #fff; font-size: .7rem; font-weight: 700; width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; } }
+.result-count { font-size: .9rem; color: $muted; }
+
+// SKELETON
+.loading-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; }
+.skeleton-card { height: 280px; background: linear-gradient(90deg, #f1f5f9 25%, #e2e8f0 50%, #f1f5f9 75%); background-size: 200% 100%; animation: shimmer 1.4s infinite; border-radius: 12px; }
+@keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+// EMPTY
+.empty-state { text-align: center; padding: 4rem; .empty-icon { font-size: 3rem; margin-bottom: 1rem; } h3 { color: $dark; margin: 0 0 .5rem; } p { color: $muted; margin: 0 0 1.5rem; } }
+.btn-primary-sm { background: $primary; color: #fff; padding: .5rem 1.2rem; border-radius: 8px; font-size: .9rem; text-decoration: none; }
+
+// GRID
+.products-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.2rem; }
+.product-card { background: #fff; border-radius: 12px; overflow: hidden; border: 1px solid $border; text-decoration: none; color: inherit; transition: .25s; display: block; }
+.product-card:hover { transform: translateY(-4px); box-shadow: 0 10px 30px rgba(0,0,0,.08); border-color: transparent; }
+.product-thumb { height: 150px; display: flex; align-items: center; justify-content: center; position: relative; }
+.thumb-icon { font-size: 2.8rem; }
+.badge-featured { position: absolute; top: 8px; left: 8px; background: $primary; color: #fff; font-size: .65rem; font-weight: 700; padding: .2rem .5rem; border-radius: 20px; }
+.badge-low { position: absolute; top: 8px; right: 8px; background: #f59e0b; color: #fff; font-size: .65rem; font-weight: 700; padding: .2rem .5rem; border-radius: 20px; }
+.badge-out { position: absolute; top: 8px; right: 8px; background: #ef4444; color: #fff; font-size: .65rem; font-weight: 700; padding: .2rem .5rem; border-radius: 20px; }
+.product-info { padding: .9rem; }
+.product-sub { font-size: .72rem; font-weight: 600; color: $primary; text-transform: uppercase; letter-spacing: .05em; margin-bottom: .3rem; }
+.product-info h4 { font-size: .92rem; font-weight: 700; color: $dark; margin: 0 0 .3rem; line-height: 1.3; }
+.product-desc { font-size: .8rem; color: $muted; margin: 0 0 .5rem; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.product-meta { display: flex; gap: .5rem; margin-bottom: .5rem; }
+.unit-badge { background: #f1f5f9; color: $muted; font-size: .7rem; padding: .15rem .5rem; border-radius: 4px; }
+.moq { background: #fef3c7; color: #92400e; font-size: .7rem; padding: .15rem .5rem; border-radius: 4px; }
+.product-price-row { display: flex; justify-content: space-between; align-items: center; }
+.price { font-size: 1.05rem; font-weight: 700; color: #059669; }
+.bulk-hint { font-size: .72rem; color: $primary; font-weight: 600; background: rgba($primary,.08); padding: .15rem .5rem; border-radius: 4px; }
+
+// PAGINATION
+.pagination { display: flex; justify-content: center; gap: .4rem; margin-top: 2rem; button { width: 36px; height: 36px; border-radius: 8px; border: 1px solid $border; background: #fff; cursor: pointer; font-size: .9rem; transition: .15s; } button.active { background: $primary; color: #fff; border-color: $primary; } button:hover:not(.active):not(:disabled) { background: #f1f5f9; } button:disabled { opacity: .4; cursor: not-allowed; } }
+
+.btn-cart-quick { display: block; width: 100%; margin-top: .5rem; background: $primary; color: #fff; border: none; padding: .4rem; border-radius: 6px; font-size: .8rem; font-weight: 600; cursor: pointer; &:hover { opacity: .88; } }
+
+@media (max-width: 1024px) { .products-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 768px) { .shop-layout { flex-direction: column; } .sidebar { width: 100%; height: auto; position: static; } .products-grid { grid-template-columns: 1fr 1fr; } }

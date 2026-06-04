@@ -1,0 +1,37 @@
+$primary:#4f46e5; $dark:#0f172a; $muted:#64748b; $border:#e2e8f0; $light:#f8fafc;
+
+.bo-page { background: $light; min-height: 100vh; }
+
+.bo-hero { background: linear-gradient(135deg, #1e1b4b, #312e81, #1e40af); padding: 4rem 2rem; text-align: center; color: #fff; }
+.bo-hero-content { max-width: 700px; margin: 0 auto; }
+.bo-badge { display: inline-block; background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.2); padding: .4rem 1rem; border-radius: 20px; font-size: .85rem; margin-bottom: 1rem; }
+.bo-hero h1 { font-size: 2.2rem; font-weight: 800; margin: 0 0 1rem; }
+.bo-hero p { color: rgba(255,255,255,.8); line-height: 1.7; margin: 0 0 1.5rem; }
+.bo-features { display: flex; flex-wrap: wrap; justify-content: center; gap: .8rem; }
+.bof { background: rgba(255,255,255,.08); border: 1px solid rgba(255,255,255,.15); padding: .4rem .9rem; border-radius: 20px; font-size: .85rem; display: flex; align-items: center; gap: .4rem; }
+
+.bo-container { max-width: 800px; margin: 0 auto; padding: 2.5rem 1.5rem; }
+
+.success-card { background: #fff; border-radius: 16px; padding: 3rem; text-align: center; border: 1px solid $border; .success-icon { font-size: 3.5rem; } h2 { font-size: 1.6rem; color: $dark; margin: .8rem 0 .5rem; } p { color: $muted; line-height: 1.7; margin: 0 0 2rem; } }
+.success-actions { display: flex; justify-content: center; gap: 1rem; }
+.btn-primary { background: $primary; color: #fff; padding: .65rem 1.5rem; border-radius: 8px; text-decoration: none; font-weight: 600; }
+.btn-outline  { border: 1px solid $border; color: $muted; padding: .65rem 1.5rem; border-radius: 8px; text-decoration: none; font-weight: 600; }
+
+.form-card { background: #fff; border-radius: 14px; padding: 1.8rem; margin-bottom: 1.2rem; border: 1px solid $border; }
+.card-header { display: flex; align-items: center; gap: .8rem; font-size: 1rem; font-weight: 700; color: $dark; margin-bottom: 1.4rem; }
+.card-num { width: 28px; height: 28px; border-radius: 50%; background: $primary; color: #fff; display: flex; align-items: center; justify-content: center; font-size: .85rem; font-weight: 700; flex-shrink: 0; }
+
+.form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+.fg { margin-bottom: .2rem; label { display: block; font-size: .85rem; font-weight: 600; color: $dark; margin-bottom: .4rem; } input, select, textarea { width: 100%; padding: .65rem .9rem; border: 1px solid $border; border-radius: 8px; font-size: .93rem; box-sizing: border-box; font-family: inherit; transition: .2s; background: #fff; &:focus { outline: none; border-color: $primary; box-shadow: 0 0 0 3px rgba($primary,.1); } } }
+.err { color: #ef4444; font-size: .78rem; }
+
+.item-row { display: flex; align-items: center; gap: .8rem; margin-bottom: .8rem; padding: .8rem; background: $light; border-radius: 8px; }
+.item-num { width: 24px; height: 24px; border-radius: 50%; background: $primary; color: #fff; font-size: .75rem; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.item-fields { display: flex; gap: .5rem; flex: 1; flex-wrap: wrap; input, select { padding: .55rem .8rem; border: 1px solid $border; border-radius: 6px; font-size: .88rem; background: #fff; &:focus { outline: none; border-color: $primary; } } input[type=text] { flex: 1; min-width: 180px; } select { min-width: 90px; } }
+.btn-remove { background: #fee2e2; color: #ef4444; border: none; border-radius: 6px; padding: .4rem .7rem; cursor: pointer; font-size: .85rem; flex-shrink: 0; &:hover { background: #fca5a5; } }
+.btn-add-item { background: none; border: 1px dashed $primary; color: $primary; padding: .55rem 1.2rem; border-radius: 8px; cursor: pointer; font-size: .88rem; font-weight: 600; margin-top: .4rem; width: 100%; &:hover { background: rgba($primary,.05); } }
+
+.alert-error { background: #fee2e2; border-left: 4px solid #ef4444; color: #b91c1c; padding: .75rem 1rem; border-radius: 8px; margin-bottom: 1rem; }
+.btn-submit { width: 100%; background: $primary; color: #fff; border: none; padding: 1rem; border-radius: 10px; font-size: 1.05rem; font-weight: 700; cursor: pointer; transition: .2s; &:hover { opacity: .88; } &:disabled { opacity: .5; cursor: not-allowed; } }
+
+@media (max-width: 600px) { .form-grid-2 { grid-template-columns: 1fr; } .bo-hero h1 { font-size: 1.6rem; } }

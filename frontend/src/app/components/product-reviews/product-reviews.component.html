@@ -1,0 +1,77 @@
+<div class="reviews-section">
+  <div class="reviews-header">
+    <h3>Customer Reviews</h3>
+    <button class="btn-write" (click)="showForm = !showForm">
+      {{ showForm ? 'Cancel' : '✏️ Write a Review' }}
+    </button>
+  </div>
+
+  <!-- Summary -->
+  <div class="review-summary" *ngIf="reviews.length">
+    <div class="avg-block">
+      <div class="avg-num">{{ avgRating }}</div>
+      <div class="avg-stars">
+        <span *ngFor="let s of stars(Math.round(avgRating))" class="star filled">★</span>
+        <span *ngFor="let s of empty(Math.round(avgRating))" class="star">★</span>
+      </div>
+      <div class="avg-count">{{ reviews.length }} review{{ reviews.length !== 1 ? 's' : '' }}</div>
+    </div>
+    <div class="dist-bars">
+      <div class="dist-row" *ngFor="let n of [5,4,3,2,1]">
+        <span class="dist-label">{{ n }}★</span>
+        <div class="bar-bg"><div class="bar-fill" [style.width.%]="ratingDist(n)"></div></div>
+        <span class="dist-pct">{{ ratingDist(n) }}%</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Write Review Form -->
+  <div class="review-form-wrap" *ngIf="showForm">
+    <div *ngIf="submitted" class="submitted-msg">✅ Thank you for your review!</div>
+    <form [formGroup]="form" (ngSubmit)="submit()" *ngIf="!submitted">
+      <div class="star-picker">
+        <span>Your Rating *</span>
+        <div class="stars-input">
+          <span *ngFor="let n of [1,2,3,4,5]"
+                class="star-btn"
+                [class.lit]="n <= (hoverStar || form.get('rating')?.value)"
+                (mouseenter)="hoverStar = n"
+                (mouseleave)="hoverStar = 0"
+                (click)="setRating(n)">★</span>
+        </div>
+      </div>
+      <div class="fg-row">
+        <div class="fg"><label>Name *</label><input formControlName="name" placeholder="Your name" /></div>
+        <div class="fg"><label>Email *</label><input formControlName="email" type="email" placeholder="your@email.com" /></div>
+      </div>
+      <div class="fg"><label>Review Title</label><input formControlName="title" placeholder="Summary in one line" /></div>
+      <div class="fg"><label>Review *</label><textarea formControlName="comment" rows="4" placeholder="Share your experience with this product..."></textarea></div>
+      <button type="submit" class="btn-submit" [disabled]="form.invalid">Submit Review</button>
+    </form>
+  </div>
+
+  <!-- Reviews List -->
+  <div *ngIf="reviews.length === 0 && !showForm" class="no-reviews">
+    No reviews yet. Be the first to review!
+  </div>
+
+  <div class="reviews-list">
+    <div class="review-card" *ngFor="let r of reviews">
+      <div class="review-top">
+        <div class="reviewer-avatar">{{ r.name[0] }}</div>
+        <div class="reviewer-info">
+          <strong>{{ r.name }}</strong>
+          <div class="r-stars">
+            <span *ngFor="let s of stars(r.rating)" class="star filled">★</span>
+            <span *ngFor="let s of empty(r.rating)" class="star">★</span>
+            <span class="verified" *ngIf="r.verified">✅ Verified</span>
+          </div>
+        </div>
+        <span class="review-date">{{ r.createdAt | date:'MMM d, y' }}</span>
+      </div>
+      <div class="review-title" *ngIf="r.title">{{ r.title }}</div>
+      <p class="review-comment">{{ r.comment }}</p>
+      <button class="btn-helpful" (click)="helpful(r)">👍 Helpful ({{ r.helpful || 0 }})</button>
+    </div>
+  </div>
+</div>

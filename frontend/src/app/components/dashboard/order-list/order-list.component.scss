@@ -1,0 +1,19 @@
+$primary:#4f46e5; $dark:#0f172a; $muted:#64748b; $border:#e2e8f0; $light:#f8fafc;
+
+.page { max-width:1100px; }
+.page-header { display:flex; justify-content:space-between; align-items:flex-start; margin-bottom:1.5rem; h2 { font-size:1.5rem; font-weight:800; color:$dark; margin:0 0 .2rem; } p { color:$muted; font-size:.88rem; margin:0; } select { padding:.5rem .9rem; border:1px solid $border; border-radius:8px; font-size:.88rem; background:#fff; } }
+.loading,.empty { color:$muted; padding:2rem 0; }
+.order-list { display:flex; flex-direction:column; gap:.7rem; }
+.order-card { background:#fff; border-radius:12px; border:1px solid $border; overflow:hidden; }
+.order-head { display:flex; justify-content:space-between; align-items:center; padding:1rem 1.2rem; cursor:pointer; gap:1rem; &:hover { background:$light; } }
+.oh-left { display:flex; align-items:center; gap:.9rem; }
+.order-num { font-weight:800; font-size:.9rem; color:$primary; min-width:90px; }
+.customer-info { strong { display:block; font-size:.9rem; color:$dark; } span { font-size:.78rem; color:$muted; } }
+.oh-right { display:flex; align-items:center; gap:.6rem; flex-wrap:wrap; }
+.order-total { font-size:.95rem; font-weight:700; color:$dark; }
+.status-badge { font-size:.72rem; font-weight:600; padding:.2rem .6rem; border-radius:20px; text-transform:capitalize; }
+.pay-badge { font-size:.7rem; font-weight:600; padding:.15rem .5rem; border-radius:20px; &.paid { background:#dcfce7; color:#15803d; } &.pend { background:#fef3c7; color:#92400e; } }
+.date { font-size:.78rem; color:$muted; }
+.order-body { padding:1.2rem; border-top:1px solid $border; background:$light; }
+.items-table { width:100%; border-collapse:collapse; font-size:.85rem; margin-bottom:1rem; th { background:#fff; color:$muted; font-size:.72rem; text-transform:uppercase; padding:.4rem .6rem; text-align:left; border:1px solid $border; } td { padding:.4rem .6rem; border:1px solid $border; } }
+.status-update { display:flex; align-items:center; gap:.4rem; flex-wrap:wrap; span { font-size:.82rem; color:$muted; } button { padding:.3rem .75rem; border-radius:20px; border:1px solid; font-size:.78rem; font-weight:600; cursor:pointer; transition:.15s; &.active { font-weight:700; } } }

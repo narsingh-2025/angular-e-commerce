@@ -1,0 +1,83 @@
+<div class="page">
+  <div class="page-header">
+    <div><h2>{{ isEdit ? 'Edit' : 'New' }} Product</h2></div>
+    <a routerLink="/dashboard/products" class="btn-back">← Back to Products</a>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="submit()" class="form-layout">
+    <div class="form-main">
+      <div class="form-card">
+        <h3>Basic Info</h3>
+        <div class="fg"><label>Product Name *</label><input formControlName="name" type="text" placeholder="e.g. Basmati Rice Premium 50kg" /></div>
+        <div class="fg"><label>Description</label><textarea formControlName="description" rows="3" placeholder="Product details..."></textarea></div>
+        <div class="form-grid-3">
+          <div class="fg"><label>Price (₹) *</label><input formControlName="price" type="number" min="0" step="0.01" /></div>
+          <div class="fg"><label>Stock</label><input formControlName="stock" type="number" min="0" /></div>
+          <div class="fg"><label>Min Order Qty</label><input formControlName="minOrderQty" type="number" min="1" /></div>
+        </div>
+        <div class="form-grid-2">
+          <div class="fg"><label>Brand</label><input formControlName="brand" type="text" placeholder="Brand name" /></div>
+          <div class="fg">
+            <label>Unit</label>
+            <select formControlName="unit">
+              <option *ngFor="let u of units" [value]="u">{{ u }}</option>
+            </select>
+          </div>
+        </div>
+        <div class="fg"><label>Tags (comma-separated)</label><input formControlName="tags" type="text" placeholder="rice, basmati, grains" /></div>
+      </div>
+
+      <div class="form-card">
+        <h3>Bulk Pricing Tiers</h3>
+        <p class="hint">Set lower prices for higher quantities. Customers will see these tiers on the product page.</p>
+        <div formArrayName="bulkPricing">
+          <div class="tier-row" *ngFor="let t of tiers.controls; let i = index" [formGroupName]="i">
+            <span class="tier-label">Tier {{ i + 1 }}</span>
+            <div class="fg-inline"><label>Min Qty</label><input formControlName="minQty" type="number" min="1" /></div>
+            <div class="fg-inline"><label>Price (₹)</label><input formControlName="price" type="number" min="0" /></div>
+            <button type="button" class="btn-rm" (click)="removeTier(i)">✕</button>
+          </div>
+        </div>
+        <button type="button" class="btn-add-tier" (click)="addTier()">+ Add Tier</button>
+      </div>
+    </div>
+
+    <div class="form-side">
+      <div class="form-card">
+        <h3>Category</h3>
+        <div class="fg">
+          <label>Category *</label>
+          <select formControlName="category">
+            <option value="">— Select —</option>
+            <option *ngFor="let c of categories" [value]="c._id">{{ c.icon }} {{ c.name }}</option>
+          </select>
+        </div>
+        <div class="fg" *ngIf="selectedCat?.subcategories?.length">
+          <label>Subcategory</label>
+          <select formControlName="subcategory">
+            <option value="">— Select —</option>
+            <option *ngFor="let s of selectedCat?.subcategories" [value]="s.name">{{ s.name }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-card">
+        <h3>Settings</h3>
+        <div class="toggle-row">
+          <span>Active</span>
+          <label class="toggle"><input formControlName="isActive" type="checkbox" /><span class="slider"></span></label>
+        </div>
+        <div class="toggle-row">
+          <span>Featured</span>
+          <label class="toggle"><input formControlName="isFeatured" type="checkbox" /><span class="slider"></span></label>
+        </div>
+      </div>
+
+      <div *ngIf="error" class="alert-error">{{ error }}</div>
+      <button type="submit" class="btn-save" [disabled]="loading">
+        {{ loading ? 'Saving...' : (isEdit ? 'Update Product' : 'Create Product') }}
+      </button>
+      <a routerLink="/dashboard/products" class="btn-cancel">Cancel</a>
+    </div>
+  </form>
+</div>

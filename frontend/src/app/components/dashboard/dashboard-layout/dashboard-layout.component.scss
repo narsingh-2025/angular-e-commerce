@@ -1,0 +1,43 @@
+$primary:#4f46e5; $dark:#0f172a; $sidebar-bg:#1e1b4b; $border:#e2e8f0; $light:#f8fafc;
+
+.dash-shell { display: flex; min-height: 100vh; }
+
+.dash-sidebar {
+  width: 230px;
+  flex-shrink: 0;
+  background: $sidebar-bg;
+  display: flex;
+  flex-direction: column;
+  position: sticky;
+  top: 0;
+  height: 100vh;
+}
+
+.dash-brand { padding: 1.4rem 1.2rem; font-size: 1.15rem; font-weight: 800; color: #fff; display: flex; align-items: center; gap: .5rem; border-bottom: 1px solid rgba(255,255,255,.08); span { font-size: 1.3rem; } }
+
+.dash-nav { flex: 1; padding: 1rem .8rem; display: flex; flex-direction: column; gap: .2rem; }
+.dash-sidebar-footer { padding: .8rem; border-top: 1px solid rgba(255,255,255,.08); display: flex; flex-direction: column; gap: .2rem; }
+
+.dash-nav-item {
+  display: flex;
+  align-items: center;
+  gap: .7rem;
+  padding: .6rem .9rem;
+  border-radius: 8px;
+  color: rgba(255,255,255,.65);
+  text-decoration: none;
+  font-size: .9rem;
+  font-weight: 500;
+  transition: .15s;
+  cursor: pointer;
+  .nav-icon { font-size: 1rem; }
+  &:hover { background: rgba(255,255,255,.08); color: #fff; }
+  &.active { background: $primary; color: #fff; font-weight: 600; }
+}
+
+.dash-content { flex: 1; display: flex; flex-direction: column; background: $light; }
+
+.dash-header { background: #fff; border-bottom: 1px solid $border; padding: .9rem 1.5rem; display: flex; justify-content: space-between; align-items: center; h2 { font-size: 1.1rem; font-weight: 700; color: $dark; margin: 0; } }
+.header-btn { background: $primary; color: #fff; padding: .45rem 1rem; border-radius: 7px; font-size: .85rem; font-weight: 600; text-decoration: none; &:hover { opacity: .88; } }
+
+.dash-main { flex: 1; padding: 1.5rem; overflow-y: auto; }

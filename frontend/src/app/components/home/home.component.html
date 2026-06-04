@@ -1,0 +1,388 @@
+<!-- ═══════════════════════════ 1. NAVBAR ═══════════════════════════ -->
+<nav class="navbar" [class.scrolled]="navScrolled">
+  <div class="nav-container">
+    <div class="brand" (click)="scrollTo('hero')">
+      <span class="brand-icon">🌾</span> FarmDirect
+    </div>
+    <ul class="nav-links" [class.open]="menuOpen">
+      <li *ngFor="let link of navLinks">
+        <a (click)="scrollTo(link.id)">{{ link.label }}</a>
+      </li>
+      <li><a routerLink="/shop">Shop</a></li>
+      <li><a routerLink="/farmers">Farmers</a></li>
+      <li><a routerLink="/bulk-order">B2B / Bulk</a></li>
+      <li>
+        <button class="cart-btn" (click)="cartSvc.openCart()">
+          🛒 <span class="cart-count" *ngIf="cartSvc.count > 0">{{ cartSvc.count }}</span>
+        </button>
+      </li>
+      <li><a routerLink="/dashboard" class="nav-cta">Dashboard</a></li>
+    </ul>
+    <button class="hamburger" (click)="menuOpen = !menuOpen">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<!-- ═══════════════════════════ 2. HERO BANNER ═══════════════════════════ -->
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-particles">
+    <span *ngFor="let i of [1,2,3,4,5,6,7,8]" class="particle p{{i}}"></span>
+  </div>
+  <div class="hero-content">
+    <div class="hero-badge">🛒 Trusted by 12,000+ Customers</div>
+    <h1>Discover Premium<br><span class="gradient-text">Products You'll Love</span></h1>
+    <p>Shop the best electronics, office gear, and lifestyle products — all stored in real-time with MongoDB and delivered to your door.</p>
+    <div class="hero-actions">
+      <button class="btn btn-hero-primary" (click)="scrollTo('products')">Browse Products</button>
+      <button class="btn btn-hero-outline" (click)="scrollTo('about')">Learn More</button>
+    </div>
+    <div class="hero-stats">
+      <div class="hero-stat"><strong>500+</strong><span>Products</span></div>
+      <div class="hero-divider"></div>
+      <div class="hero-stat"><strong>12K+</strong><span>Customers</span></div>
+      <div class="hero-divider"></div>
+      <div class="hero-stat"><strong>99%</strong><span>Satisfaction</span></div>
+    </div>
+  </div>
+  <div class="hero-image">
+    <div class="hero-card floating">
+      <div class="hc-icon">📦</div>
+      <div>
+        <div class="hc-label">New Arrival</div>
+        <div class="hc-title">Mechanical Keyboard</div>
+        <div class="hc-price">$129.99</div>
+      </div>
+    </div>
+    <div class="hero-card floating delay1">
+      <div class="hc-icon">⭐</div>
+      <div>
+        <div class="hc-label">Top Rated</div>
+        <div class="hc-title">Wireless Headphones</div>
+        <div class="hc-price">$89.99</div>
+      </div>
+    </div>
+    <div class="hero-mockup">
+      <div class="mockup-screen"></div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ 3. STATS COUNTER ═══════════════════════════ -->
+<section class="stats-section">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-card" *ngFor="let stat of animatedStats">
+        <div class="stat-number">{{ stat.current }}{{ stat.suffix }}</div>
+        <div class="stat-label">{{ stat.label }}</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ 4. ABOUT ═══════════════════════════ -->
+<section class="about-section section" id="about">
+  <div class="container">
+    <div class="about-grid">
+      <div class="about-visual">
+        <div class="about-img-main">
+          <div class="about-img-inner">
+            <span class="about-emoji">🏢</span>
+          </div>
+        </div>
+        <div class="about-badge-card">
+          <span class="ab-num">8+</span>
+          <span class="ab-text">Years of Excellence</span>
+        </div>
+      </div>
+      <div class="about-content">
+        <div class="section-label">About Us</div>
+        <h2>We're Passionate About<br>Quality & Innovation</h2>
+        <p>ProductDB was founded in 2016 with a single mission: make premium products accessible to everyone. We partner with leading manufacturers and leverage real-time MongoDB-powered inventory management to ensure you always see accurate stock data.</p>
+        <p>Our team of dedicated specialists carefully curates every item, from cutting-edge electronics to everyday essentials, ensuring only the best reaches our customers.</p>
+        <div class="about-features">
+          <div class="af-item"><span class="af-check">✔</span> ISO-certified quality control</div>
+          <div class="af-item"><span class="af-check">✔</span> Real-time live inventory via MongoDB</div>
+          <div class="af-item"><span class="af-check">✔</span> Carbon-neutral packaging since 2022</div>
+          <div class="af-item"><span class="af-check">✔</span> Dedicated account management</div>
+        </div>
+        <button class="btn btn-primary" (click)="scrollTo('contact')">Get in Touch</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ 5. SERVICES ═══════════════════════════ -->
+<section class="services-section section" id="services">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">What We Offer</div>
+      <h2>Our Services</h2>
+      <p>From purchase to delivery, we've engineered every step of the journey to exceed your expectations.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card" *ngFor="let s of services">
+        <div class="service-icon">{{ s.icon }}</div>
+        <h3>{{ s.title }}</h3>
+        <p>{{ s.desc }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ 6. PRODUCTS (DYNAMIC) ═══════════════════════════ -->
+<section class="products-section section" id="products">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">Live from MongoDB</div>
+      <h2>Featured Products</h2>
+      <p>Real-time data pulled directly from your local MongoDB database on every page load.</p>
+    </div>
+    <div *ngIf="products.length === 0" class="products-empty">
+      <span>Loading products from MongoDB...</span>
+    </div>
+    <div class="products-grid" *ngIf="products.length > 0">
+      <div class="product-card" *ngFor="let p of products">
+        <div class="product-img" [style.background]="getCatColor(p)">
+          <span class="product-emoji">{{ getCatIcon(p) }}</span>
+          <div class="product-badge" *ngIf="(p.stock ?? 0) < 5">Low Stock</div>
+        </div>
+        <div class="product-body">
+          <div class="product-category">{{ getCatName(p) }}</div>
+          <h4>{{ p.name }}</h4>
+          <p>{{ p.description || 'Premium quality product.' }}</p>
+          <div class="product-footer">
+            <span class="product-price">₹{{ p.price | number:'1.0-0' }}</span>
+            <a [routerLink]="['/shop/product', p._id]" class="btn-buy">View →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="section-cta">
+      <a routerLink="/products" class="btn btn-primary">View All Products</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ 7. GALLERY ═══════════════════════════ -->
+<section class="gallery-section section" id="gallery">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">Collections</div>
+      <h2>Shop by Category</h2>
+      <p>Explore our curated collections across every category you need.</p>
+    </div>
+    <div class="gallery-grid">
+      <div class="gallery-item" *ngFor="let g of gallery; let i = index"
+           [style.background]="g.bg"
+           [class.gallery-wide]="i === 0 || i === 5">
+        <div class="gallery-overlay">
+          <h3>{{ g.label }}</h3>
+          <span>Shop Now →</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ 8. TESTIMONIALS ═══════════════════════════ -->
+<section class="testimonials-section section" id="testimonials">
+  <div class="container">
+    <div class="section-header light">
+      <div class="section-label">Customer Stories</div>
+      <h2>What Our Customers Say</h2>
+      <p>Thousands of happy customers trust ProductDB every day.</p>
+    </div>
+    <div class="testimonials-track">
+      <div class="testimonial-card" *ngFor="let t of testimonials; let i = index"
+           [class.active]="i === activeTestimonial"
+           [class.prev]="i === (activeTestimonial - 1 + testimonials.length) % testimonials.length">
+        <div class="stars">
+          <span *ngFor="let s of [1,2,3,4,5]" [class.filled]="s <= t.stars">★</span>
+        </div>
+        <p class="t-text">"{{ t.text }}"</p>
+        <div class="t-author">
+          <div class="t-avatar">{{ t.avatar }}</div>
+          <div>
+            <div class="t-name">{{ t.name }}</div>
+            <div class="t-role">{{ t.role }}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="testimonial-dots">
+      <button *ngFor="let t of testimonials; let i = index"
+              [class.active]="i === activeTestimonial"
+              (click)="activeTestimonial = i"></button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ 9. PARTNERS ═══════════════════════════ -->
+<section class="partners-section section" id="partners">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">Trusted By</div>
+      <h2>Our Partners</h2>
+    </div>
+    <div class="partners-grid">
+      <div class="partner-logo" *ngFor="let p of partners">
+        <div class="partner-badge">{{ p.logo }}</div>
+        <span>{{ p.name }}</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ 10. TEAM ═══════════════════════════ -->
+<section class="team-section section" id="team">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">The People</div>
+      <h2>Meet Our Team</h2>
+      <p>Passionate professionals committed to delivering excellence every single day.</p>
+    </div>
+    <div class="team-grid">
+      <div class="team-card" *ngFor="let m of team">
+        <div class="team-avatar" [style.background]="m.bg">{{ m.avatar }}</div>
+        <h3>{{ m.name }}</h3>
+        <div class="team-role">{{ m.role }}</div>
+        <p>{{ m.bio }}</p>
+        <div class="team-socials">
+          <span>🔗</span><span>🐦</span><span>💼</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ FARMERS DIRECT ═══════════════════════════ -->
+<section class="farmers-section section" id="farmers">
+  <div class="container">
+    <div class="section-header">
+      <div class="section-label">🌱 Farm to Table</div>
+      <h2>Buy Direct from Farmers</h2>
+      <p>Verified farmers selling fresh produce and grains directly to you — better prices, fresher quality, fair farmer income.</p>
+    </div>
+    <div class="farmers-home-grid" *ngIf="farmers.length">
+      <a class="fh-card" [routerLink]="['/farmers', f._id]" *ngFor="let f of farmers">
+        <div class="fh-cover" [style.background]="f.coverColor || '#10b981'">
+          <div class="fh-avatar">{{ farmerInitials(f.name) }}</div>
+          <span class="fh-org" *ngIf="f.isOrganic">🌿</span>
+          <span class="fh-ver" *ngIf="f.isVerified">✓</span>
+        </div>
+        <div class="fh-body">
+          <h4>{{ f.farmName }}</h4>
+          <div class="fh-loc">📍 {{ f.location }}</div>
+          <div class="fh-specs">
+            <span *ngFor="let s of (f.specialities || []).slice(0,2)">{{ s }}</span>
+          </div>
+        </div>
+      </a>
+    </div>
+    <div class="section-cta">
+      <a routerLink="/farmers" class="btn btn-primary">Meet All Our Farmers →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ 11. CONTACT ═══════════════════════════ -->
+<section class="contact-section section" id="contact">
+  <div class="container">
+    <div class="contact-grid">
+      <div class="contact-info">
+        <div class="section-label">Get In Touch</div>
+        <h2>Let's Start a Conversation</h2>
+        <p>Have a question, bulk order request, or partnership inquiry? Our team responds within 24 hours.</p>
+        <div class="contact-items">
+          <div class="ci"><span class="ci-icon">📧</span><div><strong>Email</strong><span>hello&#64;productdb.com</span></div></div>
+          <div class="ci"><span class="ci-icon">📞</span><div><strong>Phone</strong><span>+1 (555) 123-4567</span></div></div>
+          <div class="ci"><span class="ci-icon">📍</span><div><strong>Address</strong><span>123 Tech Street, Silicon Valley, CA 94025</span></div></div>
+          <div class="ci"><span class="ci-icon">🕐</span><div><strong>Hours</strong><span>Mon–Fri, 9am – 6pm PST</span></div></div>
+        </div>
+      </div>
+      <div class="contact-form-wrap">
+        <div *ngIf="contactSent" class="contact-success">
+          <span>✅</span>
+          <h3>Message Sent!</h3>
+          <p>Thank you! We'll get back to you within 24 hours.</p>
+          <button class="btn btn-primary" (click)="contactSent = false">Send Another</button>
+        </div>
+        <form *ngIf="!contactSent" [formGroup]="contactForm" (ngSubmit)="submitContact()" class="contact-form">
+          <div class="form-row-2">
+            <div class="form-group">
+              <label>Your Name</label>
+              <input formControlName="name" type="text" placeholder="John Doe" />
+            </div>
+            <div class="form-group">
+              <label>Email Address</label>
+              <input formControlName="email" type="email" placeholder="john@example.com" />
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Subject</label>
+            <input formControlName="subject" type="text" placeholder="How can we help?" />
+          </div>
+          <div class="form-group">
+            <label>Message</label>
+            <textarea formControlName="message" rows="5" placeholder="Tell us more..."></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary full-width" [disabled]="contactForm.invalid">
+            Send Message →
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════ 12. FOOTER ═══════════════════════════ -->
+<footer class="footer" id="footer">
+  <div class="footer-top">
+    <div class="container footer-grid">
+      <div class="footer-brand">
+        <div class="brand">⚡ ProductDB</div>
+        <p>Your trusted source for premium products, powered by real-time MongoDB inventory and delivered with care.</p>
+        <div class="social-links">
+          <a href="#">🐦</a><a href="#">📘</a><a href="#">📸</a><a href="#">💼</a>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Quick Links</h4>
+        <ul>
+          <li><a (click)="scrollTo('hero')">Home</a></li>
+          <li><a (click)="scrollTo('about')">About</a></li>
+          <li><a (click)="scrollTo('services')">Services</a></li>
+          <li><a (click)="scrollTo('products')">Products</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Shipping Policy</a></li>
+          <li><a href="#">Return Policy</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Newsletter</h4>
+        <p>Get exclusive deals and product updates in your inbox.</p>
+        <div class="newsletter">
+          <input type="email" placeholder="your@email.com" />
+          <button>→</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <div class="container">
+      <span>© 2026 ProductDB. All rights reserved.</span>
+      <span>Built with ⚡ Angular 17 + MongoDB</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Back to top -->
+<button class="back-to-top" *ngIf="navScrolled" (click)="scrollTo('hero')">↑</button>

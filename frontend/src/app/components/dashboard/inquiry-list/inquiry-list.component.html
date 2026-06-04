@@ -1,0 +1,71 @@
+<div class="page">
+  <div class="page-header">
+    <div><h2>B2B Inquiries</h2><p>Manage bulk order inquiries from customers</p></div>
+    <div class="filter-bar">
+      <select [(ngModel)]="filterStatus" (change)="load()">
+        <option value="">All Status</option>
+        <option *ngFor="let s of statuses" [value]="s">{{ s | titlecase }}</option>
+      </select>
+    </div>
+  </div>
+
+  <div *ngIf="loading" class="loading">Loading inquiries...</div>
+  <div *ngIf="!loading && inquiries.length === 0" class="empty">No inquiries found.</div>
+
+  <div class="inquiry-list" *ngIf="!loading">
+    <div class="inquiry-card" *ngFor="let inq of inquiries">
+      <div class="inq-header" (click)="expand(inq._id!)">
+        <div class="inq-left">
+          <div class="inq-avatar">{{ inq.name[0] }}</div>
+          <div class="inq-info">
+            <strong>{{ inq.company || inq.name }}</strong>
+            <span>{{ inq.name }} · {{ inq.email }} · {{ inq.phone }}</span>
+          </div>
+        </div>
+        <div class="inq-right">
+          <span class="cat-chip">{{ inq.category }}</span>
+          <span class="status-badge" [style.background]="statusColors[inq.status!] + '20'" [style.color]="statusColors[inq.status!]">
+            {{ inq.status }}
+          </span>
+          <span class="date">{{ inq.createdAt | date:'MMM d, y' }}</span>
+          <span class="expand-btn">{{ expanded === inq._id ? '▲' : '▼' }}</span>
+        </div>
+      </div>
+
+      <div class="inq-body" *ngIf="expanded === inq._id">
+        <div class="inq-message">
+          <strong>Message:</strong>
+          <p>{{ inq.message }}</p>
+        </div>
+        <div class="inq-items" *ngIf="inq.items?.length">
+          <strong>Products Requested:</strong>
+          <table class="items-table">
+            <thead><tr><th>Product</th><th>Quantity</th><th>Unit</th></tr></thead>
+            <tbody>
+              <tr *ngFor="let item of inq.items">
+                <td>{{ item.productName }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.unit }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="inq-actions">
+          <div class="status-actions">
+            <span>Update Status:</span>
+            <button *ngFor="let s of statuses"
+                    [class.active]="inq.status === s"
+                    [style.borderColor]="statusColors[s]"
+                    [style.color]="inq.status === s ? '#fff' : statusColors[s]"
+                    [style.background]="inq.status === s ? statusColors[s] : 'transparent'"
+                    (click)="updateStatus(inq, s)"
+                    [disabled]="updatingId === inq._id">
+              {{ s | titlecase }}
+            </button>
+          </div>
+          <button class="btn-del" (click)="delete(inq._id!)">🗑️ Delete</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

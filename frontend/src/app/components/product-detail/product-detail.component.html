@@ -1,0 +1,112 @@
+<div class="detail-page">
+  <div *ngIf="loading" class="loading">Loading product...</div>
+  <div *ngIf="!loading && !product" class="not-found"><h2>Product not found</h2><a routerLink="/shop">← Back to Shop</a></div>
+
+  <div *ngIf="product" class="detail-container">
+    <div class="breadcrumb">
+      <a routerLink="/shop">Shop</a> /
+      <a [routerLink]="['/shop']" [queryParams]="{category: getCategory()?._id}">{{ getCategory()?.name }}</a> /
+      <span>{{ product.name }}</span>
+    </div>
+
+    <div class="detail-grid">
+      <!-- VISUAL -->
+      <div class="detail-visual">
+        <div class="main-image" [style.background]="getCategory()?.color || '#4f46e5'">
+          <span class="main-icon">{{ getCategory()?.icon || '📦' }}</span>
+          <span class="badge-feat" *ngIf="product.isFeatured">⭐ Featured</span>
+          <span class="badge-organic" *ngIf="product.isOrganic">🌿 Organic</span>
+        </div>
+
+        <!-- Rating summary -->
+        <div class="rating-bar" *ngIf="product.reviewCount">
+          <div class="rb-stars">
+            <span *ngFor="let s of starArray(product.avgRating || 0)" class="star">★</span>
+            <span *ngFor="let s of emptyArray(product.avgRating || 0)" class="star empty">★</span>
+          </div>
+          <span class="rb-score">{{ product.avgRating }}</span>
+          <span class="rb-count">({{ product.reviewCount }} reviews)</span>
+        </div>
+
+        <div class="quick-info">
+          <div class="qi" *ngIf="product.brand"><span>🏷️ Brand</span><strong>{{ product.brand }}</strong></div>
+          <div class="qi"><span>📦 Unit</span><strong>{{ product.unit }}</strong></div>
+          <div class="qi"><span>📊 Stock</span><strong [class.low]="(product.stock ?? 0) < 10">{{ product.stock ?? 0 }} available</strong></div>
+          <div class="qi" *ngIf="product.minOrderQty && product.minOrderQty > 1"><span>🛒 Min Order</span><strong>{{ product.minOrderQty }}</strong></div>
+          <div class="qi" *ngIf="product.farmLocation"><span>📍 Farm</span><strong>{{ product.farmLocation }}</strong></div>
+          <div class="qi" *ngIf="product.harvestSeason"><span>🌾 Harvest</span><strong>{{ product.harvestSeason }}</strong></div>
+        </div>
+      </div>
+
+      <!-- INFO -->
+      <div class="detail-info">
+        <div class="cat-chip" [style.background]="getCategory()?.color + '20'" [style.color]="getCategory()?.color">
+          {{ getCategory()?.icon }} {{ getCategory()?.name }} › {{ product.subcategory }}
+        </div>
+        <h1>{{ product.name }}</h1>
+        <p class="desc">{{ product.description }}</p>
+
+        <!-- Farmer card -->
+        <a *ngIf="getFarmer()" class="farmer-card-link">
+          <div class="farmer-card">
+            <div class="fc-avatar-sm" [style.background]="getFarmer()?.coverColor || '#10b981'">
+              {{ (getFarmer()?.name || 'F')[0] }}
+            </div>
+            <div>
+              <div class="fc-label">🌾 Direct from Farmer</div>
+              <div class="fc-name">{{ getFarmer()?.farmName }}</div>
+              <div class="fc-loc">📍 {{ getFarmer()?.location }}</div>
+            </div>
+            <span *ngIf="getFarmer()?.isVerified" class="fc-verified">✓</span>
+          </div>
+        </a>
+
+        <!-- Bulk Pricing -->
+        <div class="bulk-table" *ngIf="product.bulkPricing?.length">
+          <h4>📉 Bulk Pricing</h4>
+          <table>
+            <thead><tr><th>Min Qty</th><th>Price / {{ product.unit }}</th><th>Savings</th></tr></thead>
+            <tbody>
+              <tr><td>1</td><td>₹{{ product.price | number:'1.0-0' }}</td><td>—</td></tr>
+              <tr *ngFor="let tier of product.bulkPricing">
+                <td>{{ tier.minQty }}+</td>
+                <td>₹{{ tier.price | number:'1.0-0' }}</td>
+                <td class="savings">{{ ((product.price - tier.price) / product.price * 100) | number:'1.0-0' }}% off</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Order Box -->
+        <div class="order-box">
+          <div class="price-display">
+            <span class="unit-price">₹{{ getUnitPrice() | number:'1.0-0' }} <small>/ {{ product.unit }}</small></span>
+            <span class="bulk-label" *ngIf="qty >= (product.bulkPricing?.[0]?.minQty ?? 999999)">Bulk Price!</span>
+          </div>
+          <div class="qty-row">
+            <label>Quantity</label>
+            <div class="qty-ctrl">
+              <button (click)="qty = qty > (product.minOrderQty || 1) ? qty - 1 : qty">−</button>
+              <input type="number" [(ngModel)]="qty" [min]="product.minOrderQty || 1" />
+              <button (click)="qty = qty + 1">+</button>
+            </div>
+          </div>
+          <div class="total-row"><span>Estimated Total</span><strong>₹{{ getTotal() | number:'1.0-0' }}</strong></div>
+          <button class="btn-add-cart" (click)="addToCart()" [class.added]="addedToCart">
+            {{ addedToCart ? '✅ Added to Cart!' : '🛒 Add to Cart' }}
+          </button>
+          <a routerLink="/bulk-order"
+             [queryParams]="{product: product.name, category: getCategory()?.name, qty: qty, unit: product.unit}"
+             class="btn-inquiry">📩 Request Bulk Order</a>
+        </div>
+
+        <div class="tags" *ngIf="product.tags?.length">
+          <span *ngFor="let t of product.tags" class="tag">#{{ t }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reviews -->
+    <app-product-reviews [productId]="product._id!"></app-product-reviews>
+  </div>
+</div>

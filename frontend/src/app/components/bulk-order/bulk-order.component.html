@@ -1,0 +1,105 @@
+<div class="bo-page">
+  <!-- Hero -->
+  <div class="bo-hero">
+    <div class="bo-hero-content">
+      <div class="bo-badge">🏭 B2B Wholesale Platform</div>
+      <h1>Request a Bulk Order Quote</h1>
+      <p>Get exclusive wholesale pricing on stationery, clothing, food grains, vegetables, electronics and more. Our B2B team responds within 24 hours.</p>
+      <div class="bo-features">
+        <div class="bof"><span>✅</span> Competitive Wholesale Prices</div>
+        <div class="bof"><span>✅</span> Minimum Order Quantity Flexible</div>
+        <div class="bof"><span>✅</span> Dedicated Account Manager</div>
+        <div class="bof"><span>✅</span> Regular Supply Contracts Available</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="bo-container">
+    <!-- SUCCESS -->
+    <div *ngIf="submitted" class="success-card">
+      <div class="success-icon">✅</div>
+      <h2>Inquiry Submitted!</h2>
+      <p>Thank you! Our B2B team will review your inquiry and get back to you within <strong>24 hours</strong> with a detailed quotation.</p>
+      <div class="success-actions">
+        <a routerLink="/shop" class="btn-primary">Continue Shopping</a>
+        <a routerLink="/" class="btn-outline">Back to Home</a>
+      </div>
+    </div>
+
+    <!-- FORM -->
+    <form *ngIf="!submitted" [formGroup]="form" (ngSubmit)="submit()" class="bo-form">
+      <div class="form-card">
+        <div class="card-header"><span class="card-num">1</span> Contact Information</div>
+        <div class="form-grid-2">
+          <div class="fg">
+            <label>Full Name *</label>
+            <input formControlName="name" type="text" placeholder="Your full name" />
+            <span class="err" *ngIf="form.get('name')?.invalid && form.get('name')?.touched">Required</span>
+          </div>
+          <div class="fg">
+            <label>Company Name</label>
+            <input formControlName="company" type="text" placeholder="Your company (optional)" />
+          </div>
+          <div class="fg">
+            <label>Email Address *</label>
+            <input formControlName="email" type="email" placeholder="business@company.com" />
+            <span class="err" *ngIf="form.get('email')?.invalid && form.get('email')?.touched">Valid email required</span>
+          </div>
+          <div class="fg">
+            <label>Phone Number *</label>
+            <input formControlName="phone" type="tel" placeholder="+91 98765 43210" />
+            <span class="err" *ngIf="form.get('phone')?.invalid && form.get('phone')?.touched">Required</span>
+          </div>
+        </div>
+        <div class="fg">
+          <label>Category of Interest</label>
+          <select formControlName="category">
+            <option value="">— Select Category —</option>
+            <option *ngFor="let c of categories" [value]="c.name">{{ c.icon }} {{ c.name }}</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-card">
+        <div class="card-header"><span class="card-num">2</span> Products Required</div>
+        <div formArrayName="items">
+          <div class="item-row" *ngFor="let item of items.controls; let i = index" [formGroupName]="i">
+            <div class="item-num">{{ i + 1 }}</div>
+            <div class="item-fields">
+              <input formControlName="productName" type="text" placeholder="Product name (e.g. Basmati Rice 50kg)" />
+              <input formControlName="quantity" type="number" min="1" placeholder="Qty" style="width:90px" />
+              <select formControlName="unit">
+                <option value="piece">Piece</option>
+                <option value="kg">KG</option>
+                <option value="box">Box</option>
+                <option value="bag">Bag</option>
+                <option value="pack">Pack</option>
+                <option value="set">Set</option>
+                <option value="bundle">Bundle</option>
+                <option value="meter">Meter</option>
+              </select>
+            </div>
+            <button type="button" class="btn-remove" (click)="removeItem(i)" *ngIf="items.length > 1">✕</button>
+          </div>
+        </div>
+        <button type="button" class="btn-add-item" (click)="addItem()">+ Add Another Product</button>
+      </div>
+
+      <div class="form-card">
+        <div class="card-header"><span class="card-num">3</span> Additional Details</div>
+        <div class="fg">
+          <label>Message / Requirements *</label>
+          <textarea formControlName="message" rows="5"
+            placeholder="Describe your requirements — delivery location, frequency, timeline, quality standards, any special requests..."></textarea>
+          <span class="err" *ngIf="form.get('message')?.invalid && form.get('message')?.touched">Please describe your requirements (min 20 chars)</span>
+        </div>
+      </div>
+
+      <div *ngIf="error" class="alert-error">{{ error }}</div>
+
+      <button type="submit" class="btn-submit" [disabled]="loading">
+        {{ loading ? 'Submitting...' : '📩 Submit Bulk Order Inquiry' }}
+      </button>
+    </form>
+  </div>
+</div>

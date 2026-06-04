@@ -1,0 +1,66 @@
+<div class="page">
+  <div class="page-header">
+    <div><h2>Products</h2><p>{{ products.length }} total products across all categories</p></div>
+    <a routerLink="/dashboard/products/new" class="btn-add">+ Add Product</a>
+  </div>
+
+  <div class="toolbar">
+    <input [(ngModel)]="search" (input)="applyFilter()" placeholder="🔍 Search products..." class="search-input" />
+    <select [(ngModel)]="filterCat" (change)="applyFilter()">
+      <option value="">All Categories</option>
+      <option *ngFor="let c of categories" [value]="c._id">{{ c.icon }} {{ c.name }}</option>
+    </select>
+  </div>
+
+  <div *ngIf="loading" class="loading">Loading products...</div>
+
+  <div *ngIf="!loading && filtered.length === 0" class="empty">No products found.</div>
+
+  <table class="data-table" *ngIf="!loading && filtered.length > 0">
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Category</th>
+        <th>Price</th>
+        <th>Stock</th>
+        <th>Min Qty</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let p of filtered">
+        <td>
+          <div class="product-cell">
+            <div class="p-icon" [style.background]="getCatColor(p) + '20'">📦</div>
+            <div>
+              <strong>{{ p.name }}</strong>
+              <div class="sub-text">{{ p.subcategory }} · {{ p.unit }}</div>
+            </div>
+          </div>
+        </td>
+        <td>
+          <span class="cat-badge" [style.background]="getCatColor(p) + '15'" [style.color]="getCatColor(p)">
+            {{ getCatName(p) }}
+          </span>
+        </td>
+        <td class="price-cell">₹{{ p.price | number }}</td>
+        <td [class.low-stock]="(p.stock ?? 0) < 10">{{ p.stock ?? 0 }}</td>
+        <td>{{ p.minOrderQty ?? 1 }}</td>
+        <td>
+          <span class="status-dot" [class.active]="p.isActive" [class.inactive]="!p.isActive">
+            {{ p.isActive ? 'Active' : 'Inactive' }}
+          </span>
+          <span class="feat-dot" *ngIf="p.isFeatured">⭐</span>
+        </td>
+        <td>
+          <div class="actions">
+            <a [routerLink]="['/dashboard/products/edit', p._id]" class="btn-edit">Edit</a>
+            <a [routerLink]="['/shop/product', p._id]" target="_blank" class="btn-view">View</a>
+            <button (click)="delete(p._id!)" class="btn-del">Del</button>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

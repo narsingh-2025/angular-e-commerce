@@ -1,0 +1,52 @@
+<div class="container">
+  <div class="card">
+    <div class="card-header">
+      <h2>{{ isEdit ? 'Edit Product' : 'Add New Product' }}</h2>
+      <a routerLink="/products" class="btn-back">← Back to List</a>
+    </div>
+
+    <div *ngIf="error" class="alert error">{{ error }}</div>
+
+    <form [formGroup]="form" (ngSubmit)="submit()">
+      <div class="form-group">
+        <label>Name *</label>
+        <input formControlName="name" type="text" placeholder="Product name" />
+        <span *ngIf="form.get('name')?.invalid && form.get('name')?.touched" class="field-error">
+          Name is required (min 2 chars)
+        </span>
+      </div>
+
+      <div class="form-group">
+        <label>Description</label>
+        <textarea formControlName="description" placeholder="Product description" rows="3"></textarea>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label>Price ($) *</label>
+          <input formControlName="price" type="number" min="0" step="0.01" />
+          <span *ngIf="form.get('price')?.invalid && form.get('price')?.touched" class="field-error">
+            Valid price required
+          </span>
+        </div>
+
+        <div class="form-group">
+          <label>Category</label>
+          <input formControlName="category" type="text" placeholder="e.g. Electronics" />
+        </div>
+
+        <div class="form-group">
+          <label>Stock</label>
+          <input formControlName="stock" type="number" min="0" />
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary" [disabled]="form.invalid || loading">
+          {{ loading ? 'Saving...' : (isEdit ? 'Update Product' : 'Create Product') }}
+        </button>
+        <a routerLink="/products" class="btn btn-cancel">Cancel</a>
+      </div>
+    </form>
+  </div>
+</div>
