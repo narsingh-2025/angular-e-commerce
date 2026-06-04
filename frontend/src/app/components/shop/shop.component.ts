@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { RouterLink, ActivatedRoute, Router } from '@angular/router';
 import { ProductService } from '../../services/product.service';
 import { CategoryService } from '../../services/category.service';
-import { CartService } from '../../services/cart.service';
 import { Product } from '../../models/product.model';
 import { Category } from '../../models/category.model';
 
@@ -29,7 +28,6 @@ export class ShopComponent implements OnInit {
   constructor(
     private productSvc: ProductService,
     private categorySvc: CategoryService,
-    public cartSvc: CartService,
     private route: ActivatedRoute,
     private router: Router
   ) {}
@@ -79,21 +77,5 @@ export class ShopComponent implements OnInit {
 
   pageRange(): number[] {
     return Array.from({ length: this.pages }, (_, i) => i + 1);
-  }
-
-  addToCart(p: Product, event: Event): void {
-    event.preventDefault();
-    event.stopPropagation();
-    const cat = this.getCategoryObj(p);
-    this.cartSvc.add({
-      productId:     p._id!,
-      name:          p.name,
-      price:         p.price,
-      unit:          p.unit || 'piece',
-      quantity:      p.minOrderQty || 1,
-      categoryIcon:  cat?.icon,
-      categoryColor: cat?.color,
-      maxStock:      p.stock,
-    });
   }
 }

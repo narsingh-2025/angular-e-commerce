@@ -11,11 +11,9 @@ import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
 })
 export class DashboardLayoutComponent {
   navItems = [
-    { label: 'Overview',   icon: '📊', route: '/dashboard' },
-    { label: 'Orders',     icon: '🛒', route: '/dashboard/orders' },
-    { label: 'Farmers',    icon: '🌾', route: '/dashboard/farmers' },
-    { label: 'Products',   icon: '📦', route: '/dashboard/products' },
-    { label: 'Categories', icon: '🗂️',  route: '/dashboard/categories' },
-    { label: 'Inquiries',  icon: '📩', route: '/dashboard/inquiries' },
+    { label: 'Overview',    icon: '📊', route: '/dashboard' },
+    { label: 'Categories',  icon: '🗂️',  route: '/dashboard/categories' },
+    { label: 'Products',    icon: '📦', route: '/dashboard/products' },
+    { label: 'Inquiries',   icon: '📩', route: '/dashboard/inquiries' },
   ];
 }

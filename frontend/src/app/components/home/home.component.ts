@@ -3,11 +3,8 @@ import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
 import { ReactiveFormsModule, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductService } from '../../services/product.service';
-import { FarmerService } from '../../services/farmer.service';
-import { CartService } from '../../services/cart.service';
 import { Product } from '../../models/product.model';
 import { Category } from '../../models/category.model';
-import { Farmer } from '../../models/farmer.model';
 
 @Component({
   selector: 'app-home',
@@ -18,7 +15,6 @@ import { Farmer } from '../../models/farmer.model';
 })
 export class HomeComponent implements OnInit {
   products: Product[] = [];
-  farmers: Farmer[] = [];
   navScrolled = false;
   menuOpen = false;
   contactForm!: FormGroup;
@@ -83,16 +79,10 @@ export class HomeComponent implements OnInit {
     { label: 'Contact', id: 'contact' },
   ];
 
-  constructor(
-    private productService: ProductService,
-    private farmerService: FarmerService,
-    public cartSvc: CartService,
-    private fb: FormBuilder
-  ) {}
+  constructor(private productService: ProductService, private fb: FormBuilder) {}
 
   ngOnInit(): void {
     this.productService.getAll({ featured: true, limit: 6 }).subscribe({ next: (r) => this.products = r.products });
-    this.farmerService.getAll().subscribe({ next: (f) => this.farmers = f.slice(0, 4) });
     this.contactForm = this.fb.group({
       name: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
@@ -129,8 +119,6 @@ export class HomeComponent implements OnInit {
     this.contactSent = true;
     this.contactForm.reset();
   }
-
-  farmerInitials(name: string): string { return name.split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2); }
 
   private cat(p: Product): Category | null {
     return typeof p.category === 'object' ? p.category as Category : null;

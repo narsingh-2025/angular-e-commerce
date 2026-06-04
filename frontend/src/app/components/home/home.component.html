@@ -2,20 +2,14 @@
 <nav class="navbar" [class.scrolled]="navScrolled">
   <div class="nav-container">
     <div class="brand" (click)="scrollTo('hero')">
-      <span class="brand-icon">🌾</span> FarmDirect
+      <span class="brand-icon">⚡</span> ProductDB
     </div>
     <ul class="nav-links" [class.open]="menuOpen">
       <li *ngFor="let link of navLinks">
         <a (click)="scrollTo(link.id)">{{ link.label }}</a>
       </li>
       <li><a routerLink="/shop">Shop</a></li>
-      <li><a routerLink="/farmers">Farmers</a></li>
       <li><a routerLink="/bulk-order">B2B / Bulk</a></li>
-      <li>
-        <button class="cart-btn" (click)="cartSvc.openCart()">
-          🛒 <span class="cart-count" *ngIf="cartSvc.count > 0">{{ cartSvc.count }}</span>
-        </button>
-      </li>
       <li><a routerLink="/dashboard" class="nav-cta">Dashboard</a></li>
     </ul>
     <button class="hamburger" (click)="menuOpen = !menuOpen">
@@ -253,36 +247,6 @@
           <span>🔗</span><span>🐦</span><span>💼</span>
         </div>
       </div>
-    </div>
-  </div>
-</section>
-
-<!-- ═══════════════════════════ FARMERS DIRECT ═══════════════════════════ -->
-<section class="farmers-section section" id="farmers">
-  <div class="container">
-    <div class="section-header">
-      <div class="section-label">🌱 Farm to Table</div>
-      <h2>Buy Direct from Farmers</h2>
-      <p>Verified farmers selling fresh produce and grains directly to you — better prices, fresher quality, fair farmer income.</p>
-    </div>
-    <div class="farmers-home-grid" *ngIf="farmers.length">
-      <a class="fh-card" [routerLink]="['/farmers', f._id]" *ngFor="let f of farmers">
-        <div class="fh-cover" [style.background]="f.coverColor || '#10b981'">
-          <div class="fh-avatar">{{ farmerInitials(f.name) }}</div>
-          <span class="fh-org" *ngIf="f.isOrganic">🌿</span>
-          <span class="fh-ver" *ngIf="f.isVerified">✓</span>
-        </div>
-        <div class="fh-body">
-          <h4>{{ f.farmName }}</h4>
-          <div class="fh-loc">📍 {{ f.location }}</div>
-          <div class="fh-specs">
-            <span *ngFor="let s of (f.specialities || []).slice(0,2)">{{ s }}</span>
-          </div>
-        </div>
-      </a>
-    </div>
-    <div class="section-cta">
-      <a routerLink="/farmers" class="btn btn-primary">Meet All Our Farmers →</a>
     </div>
   </div>
 </section>

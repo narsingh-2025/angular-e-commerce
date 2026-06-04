@@ -38,9 +38,6 @@
         <input [(ngModel)]="filters.search" (keyup.enter)="onSearch()" placeholder="Search products..." />
         <button (click)="onSearch()">🔍</button>
       </div>
-      <button class="cart-btn-shop" (click)="cartSvc.openCart()">
-        🛒 Cart <span class="cc" *ngIf="cartSvc.count > 0">{{ cartSvc.count }}</span>
-      </button>
       <div class="result-count" *ngIf="!loading">
         {{ total }} product{{ total !== 1 ? 's' : '' }} found
         <span *ngIf="selectedCategory"> in <strong>{{ selectedCategory.name }}</strong></span>
@@ -78,7 +75,6 @@
             <span class="price">₹{{ p.price | number }}</span>
             <span class="bulk-hint" *ngIf="p.bulkPricing?.length">Bulk ↓</span>
           </div>
-          <button class="btn-cart-quick" (click)="addToCart(p, $event)">🛒 Add</button>
         </div>
       </a>
     </div>

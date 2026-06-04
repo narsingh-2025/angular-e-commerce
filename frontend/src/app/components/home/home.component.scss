@@ -602,97 +602,6 @@ $radius: 14px;
 .footer-bottom { border-top: 1px solid rgba(255,255,255,.07); padding: 1.2rem 0; }
 .footer-bottom .container { display: flex; justify-content: space-between; align-items: center; font-size: .85rem; }
 
-// ── CART BUTTON IN NAVBAR ────────────────────────────────────────────────
-.cart-btn {
-  background: rgba(255,255,255,.15);
-  border: 1px solid rgba(255,255,255,.3);
-  color: $white;
-  padding: .4rem .8rem;
-  border-radius: 20px;
-  cursor: pointer;
-  font-size: .9rem;
-  position: relative;
-  display: flex;
-  align-items: center;
-  gap: .3rem;
-  transition: .2s;
-  &:hover { background: rgba(255,255,255,.25); }
-}
-.cart-count {
-  background: #ef4444;
-  color: $white;
-  font-size: .7rem;
-  font-weight: 700;
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.navbar.scrolled .cart-btn { color: $dark; border-color: #e2e8f0; background: #f8fafc; }
-
-// ── FARMERS SECTION ────────────────────────────────────────────────────────
-.farmers-section { background: #f0fdf4; }
-.farmers-home-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.2rem;
-  margin-bottom: 2rem;
-}
-.fh-card {
-  background: $white;
-  border-radius: 14px;
-  overflow: hidden;
-  border: 1px solid #bbf7d0;
-  text-decoration: none;
-  color: inherit;
-  transition: .25s;
-  display: block;
-  &:hover { transform: translateY(-5px); box-shadow: 0 12px 30px rgba(0,0,0,.08); }
-}
-.fh-cover {
-  height: 110px;
-  display: flex;
-  align-items: flex-end;
-  padding: .7rem;
-  position: relative;
-}
-.fh-avatar {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  background: rgba(255,255,255,.25);
-  border: 3px solid rgba(255,255,255,.6);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 800;
-  font-size: 1.1rem;
-  color: $white;
-}
-.fh-org { position: absolute; top: 8px; right: 8px; font-size: 1rem; }
-.fh-ver {
-  position: absolute;
-  top: 8px;
-  left: 8px;
-  background: #10b981;
-  color: $white;
-  width: 20px;
-  height: 20px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: .7rem;
-  font-weight: 700;
-}
-.fh-body { padding: .9rem; }
-.fh-body h4 { font-size: .88rem; font-weight: 700; color: $dark; margin: 0 0 .25rem; }
-.fh-loc { font-size: .75rem; color: $muted; margin-bottom: .5rem; }
-.fh-specs { display: flex; flex-wrap: wrap; gap: .3rem; }
-.fh-specs span { background: #dcfce7; color: #166534; font-size: .7rem; padding: .15rem .45rem; border-radius: 4px; }
-
 // ── BACK TO TOP ────────────────────────────────────────────────────────────
 .back-to-top {
   position: fixed;
@@ -712,7 +621,6 @@ $radius: 14px;
 
 // ── RESPONSIVE ─────────────────────────────────────────────────────────────
 @media (max-width: 1024px) {
-  .farmers-home-grid { grid-template-columns: repeat(2, 1fr); }
   .services-grid,
   .products-grid { grid-template-columns: repeat(2, 1fr); }
   .partners-grid { grid-template-columns: repeat(3, 1fr); }

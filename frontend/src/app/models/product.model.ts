@@ -1,5 +1,4 @@
 import { Category } from './category.model';
-import { Farmer }   from './farmer.model';
 
 export interface BulkPrice { minQty: number; price: number; }
 
@@ -18,11 +17,5 @@ export interface Product {
   tags?: string[];
   isActive?: boolean;
   isFeatured?: boolean;
-  farmer?: string | Farmer;
-  isOrganic?: boolean;
-  farmLocation?: string;
-  harvestSeason?: string;
-  avgRating?: number;
-  reviewCount?: number;
   createdAt?: string;
 }
