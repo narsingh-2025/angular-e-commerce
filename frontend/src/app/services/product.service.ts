@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { Product } from '../models/product.model';
+import { environment } from '../../environments/environment';
 
 export interface ProductPage { products: Product[]; total: number; page: number; pages: number; }
 
 @Injectable({ providedIn: 'root' })
 export class ProductService {
-  private api = 'http://localhost:3000/api/products';
+  private api = `${environment.apiUrl}/products`;
   constructor(private http: HttpClient) {}
 
   getAll(filters: { category?: string; subcategory?: string; featured?: boolean; search?: string; page?: number; limit?: number } = {}): Observable<ProductPage> {

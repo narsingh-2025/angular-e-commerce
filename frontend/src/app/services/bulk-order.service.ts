@@ -2,10 +2,11 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { BulkOrder } from '../models/bulk-order.model';
+import { environment } from '../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class BulkOrderService {
-  private api = 'http://localhost:3000/api/bulk-orders';
+  private api = `${environment.apiUrl}/bulk-orders`;
   constructor(private http: HttpClient) {}
 
   getAll(status?: string): Observable<BulkOrder[]> {
